@@ -33,4 +33,26 @@ public class IntakeSubsystem extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+  public boolean isActuationFinished(boolean isLowering) {
+    double position = actuatorMotor.getSelectedSensorPosition();
+    System.out.println("Actuator Position:"+position);
+
+    //actuatorMotor.setSelectedSensorPosition(100);
+
+    if (isLowering == true && position < 10) { // if the actuator is lowering and is almost done lowering
+      // 10 is placeholder lol
+      return true;
+    } else if (!isLowering && position > 100) { // if the actuator is raising and is almost done raising
+      // 100 also placeholder 
+      // Angle of rotation ~180 so 100 is conservative estimate
+      return true; 
+    }
+
+    return false; 
+  }
+  public void setActuatorTargetPosition(double targetPosition) {
+    actuatorMotor.setSelectedSensorPosition(targetPosition);
+
+  }
 }

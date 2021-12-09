@@ -10,6 +10,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 public class ActuateIntakeCommand extends CommandBase {
   private IntakeSubsystem m_intakeSubsystem;
   private boolean m_lower;
+
   /** Creates a new ActuateIntakeCommand. */
   public ActuateIntakeCommand(IntakeSubsystem intake, boolean lower) {
     m_lower = lower;
@@ -20,12 +21,21 @@ public class ActuateIntakeCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    if (m_lower) {
+      m_intakeSubsystem.setActuatorTargetPosition(0);
+      //lowers intake subsystem to slimyy wet concreteo fo bunny bot field
+    }
+    else{
+      m_intakeSubsystem.setActuatorTargetPosition(100);
+    // set target positiom
+    }
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_lower)
+    if (m_lower)
       m_intakeSubsystem.LowerIntake();
     else
       m_intakeSubsystem.LiftIntake();
@@ -33,11 +43,13 @@ public class ActuateIntakeCommand extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    boolean isActuationFinished = m_intakeSubsystem.isActuationFinished(m_lower);
+    return isActuationFinished;
   }
 }
