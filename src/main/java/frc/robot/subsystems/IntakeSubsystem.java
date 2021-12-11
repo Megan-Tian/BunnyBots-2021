@@ -37,6 +37,7 @@ public class IntakeSubsystem extends SubsystemBase {
   public boolean isActuationFinished(boolean isLowering) {
     double position = actuatorMotor.getSelectedSensorPosition();
     System.out.println("Actuator Position:"+position);
+    // TODO put in code from MotorTest confirming degrees of rotation
 
     //actuatorMotor.setSelectedSensorPosition(100);
 
