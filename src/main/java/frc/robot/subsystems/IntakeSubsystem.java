@@ -34,6 +34,8 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
   }
 
+  // :)
+
   public boolean isActuationFinished(boolean isLowering) {
     double position = actuatorMotor.getSelectedSensorPosition();
     System.out.println("Actuator Position:"+position);
