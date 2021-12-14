@@ -32,20 +32,25 @@ public class RobotContainer {
   public final DriveSubsystem m_driveSubsystem = new DriveSubsystem();
   public final IntakeSubsystem m_intakeSubsystem = new IntakeSubsystem();
 
+  // COMMANDS
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   private final BunnyPickupCommand m_bunnyPickupCommand = new BunnyPickupCommand(m_bunnyCollector);
   public final DriveCommand m_driveCommand = new DriveCommand(m_driveSubsystem); 
-  public final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem, 1);
+  public final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem, 0.25);
+  public final IntakeCommand m_reverseIntakeCommand = new IntakeCommand(m_intakeSubsystem, -0.4);
   public final ActuateIntakeCommand m_raiseIntake = new ActuateIntakeCommand(m_intakeSubsystem, false);
   public final ActuateIntakeCommand m_lowerIntake = new ActuateIntakeCommand(m_intakeSubsystem, true);
 
+  // JOYSTICKS
   public static Joystick leftJoystick = new Joystick(0);
   public static Joystick rightJoystick = new Joystick(1);
 
+  // BUTTONS
   public JoystickButton bunnyCollectorButton = new JoystickButton(rightJoystick, 2);
   public JoystickButton intakeButton = new JoystickButton(leftJoystick, 1);
   public JoystickButton raiseintakeButton = new JoystickButton(leftJoystick, 11);
   public JoystickButton lowerintakeButton = new JoystickButton(leftJoystick, 6);
+  public JoystickButton reverseIntakeButton = new JoystickButton(rightJoystick, 1); // spins intake in opposite direction to expel balls. Uses intakeCommand
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   
@@ -65,6 +70,7 @@ public class RobotContainer {
     intakeButton.whileHeld(m_intakeCommand);
     raiseintakeButton.whenPressed(m_raiseIntake);
     lowerintakeButton.whenPressed(m_lowerIntake);
+    reverseIntakeButton.whenHeld(m_reverseIntakeCommand);
   }
 
   /**

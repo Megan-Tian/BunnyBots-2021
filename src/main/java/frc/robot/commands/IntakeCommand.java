@@ -20,17 +20,23 @@ public class IntakeCommand extends CommandBase {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    System.out.println("Speed of intake is @ IntakeCommand initialize: " + m_speed); 
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println("Speed @ IntakeCommand execute: " + m_speed); 
     m_intakeSubsystem.SpinIntake(m_speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_intakeSubsystem.SpinIntake(0);
+    System.out.println("In IntakeCommand end :(");
+  }
 
   // Returns true when the command should end.
   @Override

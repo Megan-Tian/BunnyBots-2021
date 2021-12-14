@@ -36,9 +36,9 @@ public class ActuateIntakeCommand extends CommandBase {
   @Override
   public void execute() {
     if (m_lower)
-      m_intakeSubsystem.LowerIntake();
+      m_intakeSubsystem.actuateIntake(0);
     else
-      m_intakeSubsystem.LiftIntake();
+      m_intakeSubsystem.actuateIntake(100);
   }
 
   // Called once the command ends or is interrupted.

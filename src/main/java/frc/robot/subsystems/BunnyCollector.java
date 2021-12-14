@@ -21,7 +21,7 @@ public class BunnyCollector extends SubsystemBase {
   
   }
   public void rotateBunnyCollector() {
-    bunnyCollectorMotor.set(ControlMode.PercentOutput, 1);
+    // bunnyCollectorMotor.set(ControlMode.PercentOutput, 1);
   }
 
   @Override
