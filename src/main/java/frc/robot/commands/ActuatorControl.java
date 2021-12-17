@@ -5,30 +5,32 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import  frc.robot.subsystems.BunnyCollector;
+import frc.robot.RobotContainer;
+import frc.robot.subsystems.ActuatorSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 
-public class BunnyPickupCommand extends CommandBase {
-  
-private BunnyCollector bunnyCollectorSubsystem;
-private double m_targetPosition;
+public class ActuatorControl extends CommandBase {
+  /** Creates a new ActuatorControl. */
+  private ActuatorSubsystem m_actuatorSubsystem;
 
-/** Creates a new bunnypickupcommand. */
-  public BunnyPickupCommand(BunnyCollector bunnyCollectorSubsystem, double position) {
-    this.bunnyCollectorSubsystem = bunnyCollectorSubsystem;
-    m_targetPosition = position;
-    bunnyCollectorSubsystem.setTargetPosition(position);
-	// Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(bunnyCollectorSubsystem);
+  public ActuatorControl(ActuatorSubsystem actuator) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    m_actuatorSubsystem = actuator;
+    addRequirements(actuator);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //m_intakesubsystem.setZero();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    this.bunnyCollectorSubsystem.rotateBunnyCollector(m_targetPosition);
+   // m_actuatorSubsystem.actuateIntake2(0);
+    //m_intakesubsystem.actuateIntake(RobotContainer.leftJoystick.getZ()); 
+
   }
 
   // Called once the command ends or is interrupted.

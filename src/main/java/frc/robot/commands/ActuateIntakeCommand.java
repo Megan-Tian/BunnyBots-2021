@@ -5,40 +5,46 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.subsystems.ActuatorSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 
 public class ActuateIntakeCommand extends CommandBase {
-  private IntakeSubsystem m_intakeSubsystem;
-  private boolean m_lower;
+  private ActuatorSubsystem m_actuatorSubsytem;
+  private double m_position;
 
   /** Creates a new ActuateIntakeCommand. */
-  public ActuateIntakeCommand(IntakeSubsystem intake, boolean lower) {
-    m_lower = lower;
-    m_intakeSubsystem = intake;
-    addRequirements(intake);
+  public ActuateIntakeCommand(ActuatorSubsystem actuator, double targetPosition) {
+    m_position = targetPosition;
+    m_actuatorSubsytem = actuator;
+    addRequirements(actuator);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    if (m_lower) {
-      m_intakeSubsystem.setActuatorTargetPosition(0);
-      //lowers intake subsystem to slimyy wet concreteo fo bunny bot field
-    }
-    else{
-      m_intakeSubsystem.setActuatorTargetPosition(100);
-    // set target positiom
-    }
+    System.out.println("ActuateIntakeCommand intialize(): " + m_position);
+    // m_intakeSubsystem.setZero();
+
+    m_actuatorSubsytem.setActuatorTargetPosition(m_position);
+    // if (m_lower) {
+    //   m_intakeSubsystem.setActuatorTargetPosition(0);
+    //   //lowers intake subsystem to slimyy wet concreteo fo bunny bot field
+    // }
+    // else{
+    //   m_intakeSubsystem.setActuatorTargetPosition(300);
+    //   System.out.println("Raise intake");
+    // // set target position
+    // }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_lower)
-      m_intakeSubsystem.actuateIntake(0);
-    else
-      m_intakeSubsystem.actuateIntake(100);
+    // System.out.println("ActuateIntakeCommand execute: " + m_position);
+    //m_actuatorSubsytem.actuateIntake2(m_position);
+
+    // m_intakeSubsystem.setActuatorTargetPosition(300);
   }
 
   // Called once the command ends or is interrupted.
@@ -49,7 +55,8 @@ public class ActuateIntakeCommand extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    boolean isActuationFinished = m_intakeSubsystem.isActuationFinished(m_lower);
-    return isActuationFinished;
+    return false; 
+    // boolean isActuationFinished = m_intakeSubsystem.isActuationFinished(m_lower);
+    // return isActuationFinished;
   }
 }

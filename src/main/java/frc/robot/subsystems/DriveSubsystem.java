@@ -42,6 +42,7 @@ public class DriveSubsystem extends SubsystemBase {
   public void periodic() {
      // m_motor.set(TalonSRXControlMode.PercentOutput, m_joystick.getY());
    //m_motor.set( m_joystick.getY());
+
    frontRightMotor.set(ControlMode.PercentOutput, RobotContainer.leftJoystick.getY());
    frontLeftMotor.set(ControlMode.PercentOutput, -RobotContainer.rightJoystick.getY());
     // This method will be called once per scheduler ru n

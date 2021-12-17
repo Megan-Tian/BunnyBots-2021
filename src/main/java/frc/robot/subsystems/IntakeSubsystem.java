@@ -4,33 +4,81 @@
 
 package frc.robot.subsystems;
 
+import java.util.ResourceBundle.Control;
+
+import com.ctre.phoenix.ErrorCode;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.RobotContainer;
 
 public class IntakeSubsystem extends SubsystemBase {
+ 
+
   private static final int intakePort = 5;
-  private static final int actuatorPort = 7;
-  private TalonSRX intakeMotor;
-  private TalonSRX actuatorMotor;
-  private double voltageLimit = 10;
+  private WPI_TalonSRX intakeMotor;
+
+  
 
   /** Creates a new ActuatorSubsystem. */
   public IntakeSubsystem() {
-    intakeMotor = new TalonSRX(intakePort);
-    actuatorMotor = new TalonSRX(actuatorPort);
+    intakeMotor = new WPI_TalonSRX(intakePort);
+
+      // need configSelectedFeedbackSensor line to make graph show up in Phoenix Tuner
+    // use to dial in other PID values
+
+
+    
   }
+
   public void SpinIntake(double speed){
     // System.out.println("SpinIntake");
+    //speed = RobotContainer.leftJoystick.getZ();
     intakeMotor.set(ControlMode.PercentOutput, speed);
+    //System.out.println("Speed : "+speed);
   }
+
+
+
+  /*
+  
   public void actuateIntake(double targetPosition){
-    System.out.println("LiftIntake");
-
+    //System.out.println("LiftIntake");
+    double motorCurrent = actuatorMotor.getStatorCurrent();
+    
+    if (Math.abs(motorCurrent) > motorCurrentLimit) {
+      System.out.println("actuator motor output current:" + motorCurrent +". Exceded. Push no further");
+      if (motorCurrent < 0) {
+        targetPosition++;
+      } else {
+        targetPosition--; // because encoders weren't working 
+      }
+    }
     //targetPosition = 4096/3;
+    //RobotContainer.leftJoystick.get
+    //double encoderTargetPosition =  targetPosition = (targetPosition + 1)*1024;
+    
+    double encoderTargetPosition =  targetPosition = targetPosition *1024;
 
+    // if (encoderTargetPosition > actuatorEncoderTickRotationLimit) {
+    //   //Don't rotate beyond this point.
+    //   encoderTargetPosition = actuatorEncoderTickRotationLimit;
+    // }
+
+    if (encoderTargetPosition != currentTargetPosition){
+
+      double currentPosition  = actuatorMotor.getSelectedSensorPosition();
+      
+     // double currentPosition  = actuatorMotor.getSensorCollection().getQuadraturePosition();
+      System.out.println("currentPosition/targetPosition:" +  "\t" + currentPosition + "\t" + currentTargetPosition); 
+      currentTargetPosition = encoderTargetPosition;
+    } 
+    
     int kMeasuredPosHorizontal = 1023; //Position measured when arm is horizontal
     double kTicksPerDegree = 4096 / 360; //Sensor is 1:1 with arm rotation
     double currentPos = actuatorMotor.getSelectedSensorPosition();
@@ -38,52 +86,18 @@ public class IntakeSubsystem extends SubsystemBase {
     double radians = java.lang.Math.toRadians(degrees);
     double cosineScalar = java.lang.Math.cos(radians);
 
-    double maxGravityFF = 0.1; // to be set experimentally TODO
+     double maxGravityFF = 0.5; // to be set experimentally TODO
+    
+     //actuatorMotor.set(ControlMode.PercentOutput, targetPosition );
+    //actuatorMotor.set(ControlMode.MotionMagic, currentTargetPosition);
+    // actuatorMotor.set(TalonSRXControlMode.MotionMagic, currentTargetPosition);
+    actuatorMotor.set(ControlMode.MotionMagic, -currentTargetPosition, DemandType.ArbitraryFeedForward, maxGravityFF * cosineScalar); 
+  }
 
-    //frontLeftMotor.set(ControlMode.MotionMagic, targetPosition);
-    actuatorMotor.set(ControlMode.MotionMagic, targetPosition, DemandType.ArbitraryFeedForward, maxGravityFF * cosineScalar); 
-  }
-  public void LowerIntake(){
-    System.out.println("LowerIntake");
-  }
+*/
+
+  
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
   }
-
-  // :)
-
-  public boolean isActuationFinished(boolean isLowering) {
-    
-    double position = actuatorMotor.getSelectedSensorPosition();
-    double outputVoltage = actuatorMotor.getMotorOutputVoltage();
-   // actuatorMotor.configVoltageMeasurementFilter()
-    if(outputVoltage > voltageLimit){
-      System.out.println("Voltage Limit exceeded");
-      return true;
-    }
-    System.out.println("Voltage Output : "+outputVoltage);
-    System.out.println("Actuator Position: " + position);
-    // TODO put in code from MotorTest confirming degrees of rotation
-
-    //actuatorMotor.setSelectedSensorPosition(100);
-
-    if (isLowering == true && position < 10) { // if the actuator is lowering and is almost done lowering
-      // 10 is placeholder lol
-      return true;
-    } else if (!isLowering && position > 100) { // if the actuator is raising and is almost done raising
-      // 100 also placeholder 
-      // Angle of rotation ~180 so 100 is conservative estimate
-      return true; 
-    }
-
-    return false; 
-  }
-
-  public void setActuatorTargetPosition(double targetPosition) {
-    actuatorMotor.setSelectedSensorPosition(targetPosition);
-
-  }
-
-
 }
