@@ -49,13 +49,13 @@ public class Robot extends TimedRobot {
   /** This function is called once each time the robot enters Disabled mode. */
   @Override
   public void disabledInit() {
-    m_robotContainer.m_actuatorControl.cancel();
+   // m_robotContainer.m_actuatorControl.cancel();
   }
 
   @Override
   public void disabledPeriodic() {
     m_robotContainer.m_driveCommand.cancel();
-    m_robotContainer.m_actuatorControl.cancel();
+   // m_robotContainer.m_actuatorControl.cancel();
     super.disabledPeriodic();
   }
 
@@ -85,7 +85,7 @@ public class Robot extends TimedRobot {
     }
     m_robotContainer.m_actuatorSubsystem.setZero();
    //
-    m_robotContainer.m_actuatorControl.schedule();
+    //m_robotContainer.m_actuatorControl.schedule();
     m_robotContainer.m_driveCommand.schedule();
 
 

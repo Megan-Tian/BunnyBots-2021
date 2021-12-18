@@ -28,7 +28,7 @@ public class ActuatorControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   // m_actuatorSubsystem.actuateIntake2(0);
+   m_actuatorSubsystem.actuateIntake2();
     //m_intakesubsystem.actuateIntake(RobotContainer.leftJoystick.getZ()); 
 
   }
