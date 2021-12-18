@@ -40,11 +40,15 @@ public class RobotContainer {
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
   // private final BunnyPickupCommand m_bunnyPickupCommand = new BunnyPickupCommand(m_bunnyCollector, -1000);
   public final DriveCommand m_driveCommand = new DriveCommand(m_driveSubsystem); 
-  public final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem, 0.19);
+
+  // !!! CHANGE LINE BELOW TO CHANGE INTAKE ROTATION SPEED - closer to 1 to increase speed, closer to 0 to decrease
+  public final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem, 0.24); // started out as 0.18/0.19, adjust by 0.1 or 0.2 as needed
+ 
   public final IntakeCommand m_unloadIntakeCommand = new IntakeCommand(m_intakeSubsystem, -0.6);
   public final IntakeCommand m_reverseIntakeCommand = new IntakeCommand(m_intakeSubsystem, 0.6);
   public final ActuateIntakeCommand2 m_raiseIntake = new ActuateIntakeCommand2(m_actuatorSubsystem, ActuatorSubsystem.INTAKE_DEPOSIT_HIGH_POSITION, false);
   public final ActuateIntakeCommand2 m_lowerIntake = new ActuateIntakeCommand2(m_actuatorSubsystem, ActuatorSubsystem.INTAKE_LOW_POSITION, true);
+  // public final ActuateIntakeCommand2 m_lowerIntakeSmall = new ActuateIntakeCommand2(m_actuatorSubsystem, ActuatorSubsystem.INTAKE_START, true);
   //public final ActuatorControl m_actuatorControl = new ActuatorControl(m_actuatorSubsystem);
  // public final ActuateIntakeCommand m_raiseIntoNeutralIntake = new ActuateIntakeCommand(m_actuatorSubsystem, ActuatorSubsystem.INTAKE_LOW_POSITION);
 
@@ -58,7 +62,7 @@ public class RobotContainer {
   public JoystickButton intakeButton = new JoystickButton(rightJoystick, 1);
   public JoystickButton raiseintakeButton = new JoystickButton(rightJoystick, 2);
   public JoystickButton lowerintakeButton = new JoystickButton(leftJoystick, 2);
-  public JoystickButton unloadIntakeButton = new JoystickButton(rightJoystick, 4);
+  public JoystickButton unloadIntakeButton = new JoystickButton(rightJoystick, 4); // spin in SAME DIRECTION as intakeButton, just faster
   public JoystickButton reverseIntakeButton = new JoystickButton(leftJoystick, 1); // spins intake in opposite direction to expel balls. Uses intakeCommand
   //public JoystickButton raiseIntakeToNeutralPositionButton = new JoystickButton(rightJoystick, 3);
 
