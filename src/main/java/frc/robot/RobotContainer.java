@@ -44,7 +44,7 @@ public class RobotContainer {
   // !!! CHANGE LINE BELOW TO CHANGE INTAKE ROTATION SPEED - closer to 1 to increase speed, closer to 0 to decrease
   public final IntakeCommand m_intakeCommand = new IntakeCommand(m_intakeSubsystem, 0.24); // started out as 0.18/0.19, adjust by 0.1 or 0.2 as needed
  
-  public final IntakeCommand m_unloadIntakeCommand = new IntakeCommand(m_intakeSubsystem, -0.6);
+  public final IntakeCommand m_unloadIntakeCommand = new IntakeCommand(m_intakeSubsystem, -0.58);
   public final IntakeCommand m_reverseIntakeCommand = new IntakeCommand(m_intakeSubsystem, 0.6);
   public final ActuateIntakeCommand2 m_raiseIntake = new ActuateIntakeCommand2(m_actuatorSubsystem, ActuatorSubsystem.INTAKE_DEPOSIT_HIGH_POSITION, false);
   public final ActuateIntakeCommand2 m_lowerIntake = new ActuateIntakeCommand2(m_actuatorSubsystem, ActuatorSubsystem.INTAKE_LOW_POSITION, true);
